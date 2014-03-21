@@ -66,8 +66,29 @@ ResourceOperatorEvent: !Extends_ResourceEvent
 # Event created when a user reports an issue, contains a generated guid in the
 # description that should line up with the email.
 ResourceIssueReportedEvent: !Extends_ResourceEvent
-
 ---
+
+# ------------------------------------------------------------------------------------
+# Directory Events
+# Events about the registration of an entry in the directory
+#
+# origin: set to the org_id + ".DIR"
+# sub_type: event specific
+# ------------------------------------------------------------------------------------
+
+# Base type for directory related events in the system.
+DirectoryEvent: !Extends_Event
+---
+
+# Event indicating that directory attributes were changed or the entry was created or deleted.
+# sub_type: REGISTER/UNREGISTER.path.to.parent
+DirectoryModifiedEvent: !Extends_DirectoryEvent
+  org: ""
+  parent: ""
+  key: ""
+  mod_type: !enum (name=DirectoryModificationType, values=(CREATE, UPDATE, DELETE), default=CREATE)
+---
+
 # DataSource Events
 ExternalDataSourceEvent: !Extends_ResourceEvent
 
